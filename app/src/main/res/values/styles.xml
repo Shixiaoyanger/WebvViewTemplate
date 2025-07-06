@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- 启用系统栏背景绘制 -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!-- 设置状态栏颜色为主题色 -->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <!-- 可选：设置导航栏颜色 -->
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
+    </style>
+
+</resources>

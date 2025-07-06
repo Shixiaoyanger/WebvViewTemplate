@@ -1,0 +1,50 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+
+android {
+    compileSdkVersion 36
+    defaultConfig {
+        applicationId "com.yanger.suwayomi"
+
+        minSdkVersion 26
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        
+        // 默认 URL 配置
+        buildConfigField "String", "WEBVIEW_URL", "\"https://www.google.com\""
+    }
+    namespace "com.yanger.suwayomi"
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 生产环境 URL
+            buildConfigField "String", "WEBVIEW_URL", "\"https://www.google.com\""
+        }
+        debug {
+            // 开发环境 URL（可以设置为测试服务器）
+            buildConfigField "String", "WEBVIEW_URL", "\"https://www.google.com\""
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    testImplementation 'junit:junit:4.13.2'
+}

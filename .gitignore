@@ -1,0 +1,47 @@
+# Android build files
+/app/build/
+/build/
+
+# Gradle files
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+*.iml
+
+# Log/OS files
+*.log
+*.swp
+*.swo
+
+# Keystore files
+*.jks
+*.keystore
+
+# Generated files
+captures/
+output.json
+
+# Android Studio
+.idea/
+*.iws
+*.ipr
+*.iml
+
+# Misc
+*.apk
+*.ap_ 
+*.cxx/
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Other
+*.bak
+*.tmp
+
+# Ignore gradle wrapper jar (optional, if not checked in)
+# /gradle/wrapper/gradle-wrapper.jar
