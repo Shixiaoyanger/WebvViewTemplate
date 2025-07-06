@@ -1,7 +1,7 @@
 # 📱 Android WebView Template 应用
 
 <div align="center">
-  <img src="app/src/main/res/drawable/round_icon.png" width="120" height="120" alt="App Icon"/>
+  <img src="app/src/main/res/drawable-v24/round_icon.png" width="60" height="60" alt="App Icon"/>
   
   [![Android](https://img.shields.io/badge/Android-8.0%2B-green?logo=android)](https://developer.android.com)
   [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.0-blue?logo=kotlin)](https://kotlinlang.org)
