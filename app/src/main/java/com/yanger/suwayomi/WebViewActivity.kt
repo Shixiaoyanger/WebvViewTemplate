@@ -3,9 +3,8 @@ package com.yanger.suwayomi
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -22,12 +21,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.yanger.suwayomi.databinding.ActivityWebViewBinding
-import androidx.core.content.edit
 
 class WebViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebViewBinding
@@ -47,12 +45,10 @@ class WebViewActivity : AppCompatActivity() {
             window.attributes.layoutInDisplayCutoutMode = mode
         }
 
-        // 沉浸式状态栏：内容延伸到状态栏下方
+        // 内容延伸到状态栏下方
         WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        // 设置状态栏图标为白色（适配深色背景）
-        val controller = WindowInsetsControllerCompat(window, window.decorView)
-        controller.isAppearanceLightStatusBars = false
+        // 设置沉浸式状态栏
+        setImmersiveStatusBar()
 
         // 视图绑定
         binding = ActivityWebViewBinding.inflate(layoutInflater)
@@ -89,11 +85,16 @@ class WebViewActivity : AppCompatActivity() {
     // 沉浸式状态栏设置
     private fun setImmersiveStatusBar() {
         val controller = WindowInsetsControllerCompat(window, window.decorView)
-        controller.isAppearanceLightStatusBars = false
+        val isDarkTheme = (this.getResources().configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+        // 根据系统主题设置状态栏图标颜色
+        // 在配置WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE 时不生效
+        controller.isAppearanceLightStatusBars = !isDarkTheme
         // 如需隐藏状态栏可添加：
         controller.hide(WindowInsetsCompat.Type.statusBars())
         // 如需隐藏导航栏可添加：
         controller.hide(WindowInsetsCompat.Type.navigationBars())
+        // 设置状态栏行为 在滑动时显示状态栏 在其他情况隐藏状态栏
+        controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
     }
 
     override fun onPause() {
@@ -172,7 +173,7 @@ class WebViewActivity : AppCompatActivity() {
             } else if (errorResponse.statusCode != 200) {
                 Toast.makeText(
                     this@WebViewActivity,
-                    "error code${errorResponse.statusCode}",
+                    "${request.url} get error code ${errorResponse.statusCode}",
                     Toast.LENGTH_SHORT
                 ).show()
             }
