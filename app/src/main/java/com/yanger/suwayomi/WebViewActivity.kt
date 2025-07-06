@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import androidx.core.content.edit
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -171,11 +173,15 @@ class WebViewActivity : AppCompatActivity() {
                 deleteSharedPreferences("auth")
                 Toast.makeText(this@WebViewActivity, "delete auth info", Toast.LENGTH_SHORT).show()
             } else if (errorResponse.statusCode != 200) {
-                Toast.makeText(
-                    this@WebViewActivity,
+                Snackbar.make(
+                    findViewById(android.R.id.content),
                     "${request.url} get error code ${errorResponse.statusCode}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    Snackbar.LENGTH_LONG
+                )
+                    .setTextMaxLines(10)
+                    .setBackgroundTint(Color.WHITE)
+                    .setTextColor(Color.BLACK)
+                    .show()
             }
             Log.d("debug", "error code${errorResponse.statusCode}")
         }
